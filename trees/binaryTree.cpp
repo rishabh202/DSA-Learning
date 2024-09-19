@@ -92,7 +92,7 @@ void preorder(node* root){
   preorder(root->left); // L
   preorder(root->right); // R
 
-}
+};
 void postorder(node* root){
   // Base case
   if(root == NULL){
@@ -103,13 +103,53 @@ void postorder(node* root){
   preorder(root->right); // R
   cout<<root->data<<" ";  // N
 
+};
+
+void buildFromLevelOrder(node* root){
+  queue<node*> q;
+  cout<<"Enter data for root: "<<endl;
+  int data;
+  cin>>data;
+  root = new node(data);
+  q.push(root);
+
+  while (!q.empty())
+  {
+   node* temp = q.front();
+   q.pop();
+   cout<<"Enter left node for: "<< temp->data <<endl;
+   int leftData;
+   cin>>leftData;
+
+   if(leftData != -1){
+    temp -> left = new node(leftData);
+    q.push(temp->left);
+   }
+
+   cout<<"Enter right node for: "<< temp->data <<endl;
+   int rightData;
+   cin>>rightData;
+
+   if(rightData != -1){
+    temp -> right = new node(rightData);
+    q.push(temp->right);
+   }
+  }
+  
 }
+
+
 
 int main(){
     cout<<"Lec 62 | Trees"<<endl;
-
     node* root = NULL;
 
+    buildFromLevelOrder(root);
+    // 1 3 5 7 11 17 -1 -1 -1 -1 -1 -1 -1
+
+    levelOrderTraversal(root);
+
+  /*
     // Creating a tree 
     root = buildTree(root);
 
@@ -128,6 +168,8 @@ int main(){
     cout<<"Postorder traversal is: "<<endl;
     postorder(root);
     cout<<endl;
+
+    */
 
     return 0;
 }
